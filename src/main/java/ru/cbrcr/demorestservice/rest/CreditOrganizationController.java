@@ -1,5 +1,6 @@
 package ru.cbrcr.demorestservice.rest;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.cbrcr.demorestservice.entities.CreditOrganization;
@@ -7,6 +8,7 @@ import ru.cbrcr.demorestservice.entities.services.CreditOrganizationServiceImpl;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class CreditOrganizationController {
@@ -20,13 +22,17 @@ public class CreditOrganizationController {
 
     @GetMapping("/credit-org/{id}")
     public CreditOrganization getById(@PathVariable Long id) {
-        return creditOrganizationServiceImpl.findById(id)
+        CreditOrganization creditOrganization = creditOrganizationServiceImpl.findById(id)
                 .orElseThrow(() -> new RuntimeException("По данному id организация не найдена"));
+        log.debug("Founded object: {}", creditOrganization.toString());
+        return creditOrganization;
     }
 
     @GetMapping("/credit-org")
     public List<CreditOrganization> getAll() {
-        return creditOrganizationServiceImpl.findAll();
+        List<CreditOrganization> all = creditOrganizationServiceImpl.findAll();
+        all.forEach(co -> log.debug("Found objects: {}", co.toString()));
+        return all;
     }
 
     @GetMapping("/credit-org/name/{name}")
