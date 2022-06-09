@@ -1,0 +1,1 @@
+INSERT INTO credit_organization(name, regNumber) VALUES ('VTB', '11111'), ('SBER', '22222');
