@@ -14,13 +14,18 @@ import javax.persistence.*;
 public class CorrespondentAccount {
 
     @Id
-    @GeneratedValue(generator = "increment", strategy = GenerationType.IDENTITY)
-    @GenericGenerator(name="increment", strategy = "increment")
+    @GeneratedValue(generator = "increment", strategy = GenerationType.SEQUENCE)
+    //@GenericGenerator(name="increment", strategy = "increment")
     private Long id;
+
     @Column(name = "accountNumber", nullable = false)
     private Long accountNumber;
-    @Column(name = "name", length = 255, nullable = false)
+
+    @Column(name = "name", length = 200, nullable = false)
     private String name;
+
+    @ManyToOne()
+    private CreditOrganization creditOrganization;
 
     public CorrespondentAccount(Long accountNumber, String name) {
         this.accountNumber = accountNumber;

@@ -18,14 +18,18 @@ public class CreditOrganization {
     @GeneratedValue(generator = "increment", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name="increment", strategy = "increment")
     private Long id;
+
     @Column
     private String name;
+
     @Column
     private String regNumber;
+
     @JoinColumn(name = "correspondent_account_id")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<CorrespondentAccount> correspondentAccounts;
-    @OneToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "department_cb_id")
     private DepartmentCBRF departmentCBRF;
 

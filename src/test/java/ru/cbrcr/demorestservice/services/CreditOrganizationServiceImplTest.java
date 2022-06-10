@@ -1,4 +1,4 @@
-package ru.cbrcr.demorestservice.entities.services;
+package ru.cbrcr.demorestservice.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,7 +7,6 @@ import org.springframework.data.domain.Sort;
 import ru.cbrcr.demorestservice.entities.CorrespondentAccount;
 import ru.cbrcr.demorestservice.entities.CreditOrganization;
 import ru.cbrcr.demorestservice.entities.DepartmentCBRF;
-import ru.cbrcr.demorestservice.repositories.CreditOrganizationRepo;
 
 import java.util.Set;
 

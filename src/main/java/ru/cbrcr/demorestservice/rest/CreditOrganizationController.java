@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.cbrcr.demorestservice.entities.CreditOrganization;
-import ru.cbrcr.demorestservice.entities.services.CreditOrganizationServiceImpl;
+import ru.cbrcr.demorestservice.services.CreditOrganizationServiceImpl;
 
 import java.util.List;
 

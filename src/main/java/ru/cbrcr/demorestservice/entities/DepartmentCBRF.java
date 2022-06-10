@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,15 +18,18 @@ public class DepartmentCBRF {
     @GeneratedValue(generator = "increment", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name="increment", strategy = "increment")
     private Long id;
+
     @Column
     private String name;
-    @Column
-    private String codeDepartment;
-    @OneToOne(cascade = CascadeType.ALL)
-    private CreditOrganization creditOrganization;
 
-    public DepartmentCBRF(String name, String codeDepartment) {
+    @Column
+    private String code;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<CreditOrganization> creditOrganization;
+
+    public DepartmentCBRF(String name, String code) {
         this.name = name;
-        this.codeDepartment = codeDepartment;
+        this.code = code;
     }
 }
