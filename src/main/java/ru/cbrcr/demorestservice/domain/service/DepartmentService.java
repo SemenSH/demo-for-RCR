@@ -1,8 +1,8 @@
-package ru.cbrcr.demorestservice.services;
+package ru.cbrcr.demorestservice.domain.service;
 
 import org.springframework.stereotype.Service;
-import ru.cbrcr.demorestservice.entities.DepartmentCBRF;
-import ru.cbrcr.demorestservice.repositories.DepartmentCBRFRepo;
+import ru.cbrcr.demorestservice.domain.model.DepartmentCBRF;
+import ru.cbrcr.demorestservice.domain.repository.DepartmentCBRFRepo;
 
 import java.util.Optional;
 

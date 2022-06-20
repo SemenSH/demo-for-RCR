@@ -1,8 +1,8 @@
-package ru.cbrcr.demorestservice.services;
+package ru.cbrcr.demorestservice.domain.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
-import ru.cbrcr.demorestservice.entities.CreditOrganization;
+import ru.cbrcr.demorestservice.domain.model.CreditOrganization;
 
 import java.util.List;
 import java.util.Optional;

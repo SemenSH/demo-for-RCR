@@ -1,8 +1,9 @@
-package ru.cbrcr.demorestservice.entities;
+package ru.cbrcr.demorestservice.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 
@@ -10,12 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "correspondent_account")
-public class CorrespondentAccount {
-
-    @Id
-    @GeneratedValue(generator = "increment", strategy = GenerationType.SEQUENCE)
-    //@GenericGenerator(name="increment", strategy = "increment")
-    private Long id;
+public class CorrespondentAccount extends AbstractPersistable<Long> {
 
     @Column(name = "number", nullable = false)
     private Long number;
@@ -23,8 +19,8 @@ public class CorrespondentAccount {
     @Column(name = "name", length = 200, nullable = false)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private CreditOrganization creditOrganization;
+    @Column(name = "creditOrganisation_id")
+    private Long creditOrganisationId;
 
     public CorrespondentAccount(Long number, String name) {
         this.number = number;
