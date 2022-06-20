@@ -3,10 +3,11 @@ package ru.cbrcr.demorestservice.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Set;
+
+import static javax.persistence.CascadeType.*;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +17,6 @@ public class CreditOrganization {
 
     @Id
     @GeneratedValue(generator = "increment", strategy = GenerationType.IDENTITY)
-    @GenericGenerator(name="increment", strategy = "increment")
     private Long id;
 
     @Column
@@ -29,9 +29,9 @@ public class CreditOrganization {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<CorrespondentAccount> correspondentAccounts;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {PERSIST, MERGE, REFRESH, DETACH})
     @JoinColumn(name = "department_cb_id")
-    private DepartmentCBRF departmentCBRF;
+    private DepartmentCBRF department;
 
     public CreditOrganization(String name, String regNumber) {
         this.name = name;

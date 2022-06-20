@@ -3,7 +3,6 @@ package ru.cbrcr.demorestservice.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -18,17 +17,17 @@ public class CorrespondentAccount {
     //@GenericGenerator(name="increment", strategy = "increment")
     private Long id;
 
-    @Column(name = "accountNumber", nullable = false)
-    private Long accountNumber;
+    @Column(name = "number", nullable = false)
+    private Long number;
 
     @Column(name = "name", length = 200, nullable = false)
     private String name;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     private CreditOrganization creditOrganization;
 
-    public CorrespondentAccount(Long accountNumber, String name) {
-        this.accountNumber = accountNumber;
+    public CorrespondentAccount(Long number, String name) {
+        this.number = number;
         this.name = name;
     }
 }

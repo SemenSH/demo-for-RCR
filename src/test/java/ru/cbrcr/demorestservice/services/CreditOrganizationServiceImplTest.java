@@ -24,7 +24,7 @@ class CreditOrganizationServiceImplTest {
         DepartmentCBRF departmentCBRF = new DepartmentCBRF(
                 "ГУ Банка России по Свердловской области", "65");
         sber.setCorrespondentAccounts(Set.of(ca, ca2));
-        sber.setDepartmentCBRF(departmentCBRF);
+        sber.setDepartment(departmentCBRF);
 
         CreditOrganization vtb = new CreditOrganization( "VTB", "222222222");
         CorrespondentAccount account1 = new CorrespondentAccount( 22333L, "acc#1");
@@ -32,7 +32,7 @@ class CreditOrganizationServiceImplTest {
         DepartmentCBRF department = new DepartmentCBRF(
                 "ГУ Банка России по Свердловской области", "08");
         vtb.setCorrespondentAccounts(Set.of(account1, account2));
-        vtb.setDepartmentCBRF(department);
+        vtb.setDepartment(department);
     }
 
     @Test

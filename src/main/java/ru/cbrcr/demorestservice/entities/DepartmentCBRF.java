@@ -1,11 +1,12 @@
 package ru.cbrcr.demorestservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -16,7 +17,6 @@ public class DepartmentCBRF {
 
     @Id
     @GeneratedValue(generator = "increment", strategy = GenerationType.IDENTITY)
-    @GenericGenerator(name="increment", strategy = "increment")
     private Long id;
 
     @Column
@@ -25,8 +25,9 @@ public class DepartmentCBRF {
     @Column
     private String code;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<CreditOrganization> creditOrganization;
+    @JsonIgnore
+    @OneToMany()
+    private List<CreditOrganization> creditOrganization = new ArrayList<>();
 
     public DepartmentCBRF(String name, String code) {
         this.name = name;
