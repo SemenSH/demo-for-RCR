@@ -1,4 +1,4 @@
-package ru.cbrcr.demorestservice;
+package ru.cbr.demorestservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -7,11 +7,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
-import ru.cbrcr.demorestservice.domain.model.CorrespondentAccount;
-import ru.cbrcr.demorestservice.domain.model.CreditOrganization;
-import ru.cbrcr.demorestservice.domain.model.CreditOrganizationType;
-import ru.cbrcr.demorestservice.domain.model.DepartmentCBRF;
-import ru.cbrcr.demorestservice.domain.repository.CreditOrganizationRepo;
+import ru.cbr.demorestservice.domain.model.CorrespondentAccount;
+import ru.cbr.demorestservice.domain.repository.CreditOrganizationRepo;
+import ru.cbr.demorestservice.domain.model.CreditOrganization;
+import ru.cbr.demorestservice.domain.model.CreditOrganizationType;
+import ru.cbr.demorestservice.domain.model.DepartmentCBRF;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;

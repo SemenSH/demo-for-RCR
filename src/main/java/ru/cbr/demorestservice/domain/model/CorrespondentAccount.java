@@ -1,4 +1,4 @@
-package ru.cbrcr.demorestservice.domain.model;
+package ru.cbr.demorestservice.domain.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

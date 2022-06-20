@@ -1,9 +1,9 @@
-package ru.cbrcr.demorestservice.domain.repository;
+package ru.cbr.demorestservice.domain.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import ru.cbrcr.demorestservice.domain.model.DepartmentCBRF;
+import ru.cbr.demorestservice.domain.model.DepartmentCBRF;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package ru.cbrcr.demorestservice.domain.service;
+package ru.cbr.demorestservice.domain.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -6,8 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import ru.cbrcr.demorestservice.domain.repository.CreditOrganizationRepo;
-import ru.cbrcr.demorestservice.domain.model.CreditOrganization;
+import ru.cbr.demorestservice.domain.repository.CreditOrganizationRepo;
+import ru.cbr.demorestservice.domain.model.CreditOrganization;
 
 import javax.transaction.Transactional;
 import java.util.List;
