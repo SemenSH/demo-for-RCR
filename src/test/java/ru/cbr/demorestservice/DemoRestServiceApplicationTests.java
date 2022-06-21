@@ -1,4 +1,4 @@
-package ru.cbrcr.demorestservice;
+package ru.cbr.demorestservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
