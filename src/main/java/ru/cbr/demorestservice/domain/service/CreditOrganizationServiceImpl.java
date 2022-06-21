@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import ru.cbr.demorestservice.domain.repository.CreditOrganizationRepo;
+import ru.cbr.demorestservice.domain.repository.CreditOrganizationRepository;
 import ru.cbr.demorestservice.domain.model.CreditOrganization;
 
 import javax.transaction.Transactional;
@@ -17,26 +17,26 @@ import java.util.Optional;
 @Transactional
 public class CreditOrganizationServiceImpl implements CreditOrganizationService{
 
-    private CreditOrganizationRepo creditOrganizationRepo;
+    private CreditOrganizationRepository creditOrganizationRepository;
 
     @Autowired
-    public CreditOrganizationServiceImpl(CreditOrganizationRepo creditOrganizationRepo) {
-        this.creditOrganizationRepo = creditOrganizationRepo;
+    public CreditOrganizationServiceImpl(CreditOrganizationRepository creditOrganizationRepository) {
+        this.creditOrganizationRepository = creditOrganizationRepository;
     }
 
     @Override
     public Optional<CreditOrganization> findById(Long id) {
-        return creditOrganizationRepo.findById(id);
+        return creditOrganizationRepository.findById(id);
     }
 
     @Override
     public List<CreditOrganization> findAll() {
-        return creditOrganizationRepo.findAll();
+        return creditOrganizationRepository.findAll();
     }
 
     @Override
     public CreditOrganization findByName(String name) {
-        return creditOrganizationRepo.findAll().stream()
+        return creditOrganizationRepository.findAll().stream()
                 .filter(s -> s.getName().equalsIgnoreCase(name))
                 .findFirst().orElseThrow(() -> new RuntimeException("Организации с таким именем нет"));
         //TODO можно ли реализовать через метод-конструктор? Вариант с findByName отдает пустой лист или 1...
@@ -44,18 +44,18 @@ public class CreditOrganizationServiceImpl implements CreditOrganizationService{
 
     @Override
     public void removeById(Long id) {
-        creditOrganizationRepo.deleteById(id);
+        creditOrganizationRepository.deleteById(id);
     }
 
     @Override
     public void removeAll() {
-        creditOrganizationRepo.deleteAll();
+        creditOrganizationRepository.deleteAll();
     }
 
     @Override
     public Page<CreditOrganization> findAtPage(int pageIndex, int rowCount, Sort.Direction direction, String sortField) {
         PageRequest request = PageRequest.of(pageIndex, rowCount, direction, sortField);
-        return creditOrganizationRepo.findAll(request);
+        return creditOrganizationRepository.findAll(request);
     }
 
     @Override
@@ -65,6 +65,6 @@ public class CreditOrganizationServiceImpl implements CreditOrganizationService{
 
     @Override
     public List<CreditOrganization> findSame(CreditOrganization creditOrganization) {
-        return creditOrganizationRepo.findAll(Example.of(creditOrganization));
+        return creditOrganizationRepository.findAll(Example.of(creditOrganization));
     }
 }

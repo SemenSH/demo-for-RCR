@@ -8,7 +8,7 @@ import ru.cbr.demorestservice.domain.model.CreditOrganization;
 import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "clients", path = "clients")
-public interface CreditOrganizationRepo extends JpaRepository<CreditOrganization, Long> {
+public interface CreditOrganizationRepository extends JpaRepository<CreditOrganization, Long> {
 
     List<CreditOrganization> findByName(@Param("name") String name);
 }

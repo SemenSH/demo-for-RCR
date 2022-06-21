@@ -1,17 +1,16 @@
 package ru.cbr.demorestservice.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "departments")
-public class DepartmentCBRF extends AbstractPersistable<Long> {
+public class DepartmentCbr extends AbstractPersistable<Long> {
 
     @Column
     private String name;
