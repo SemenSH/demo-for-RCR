@@ -22,6 +22,11 @@ import java.util.List;
 public class CreditOrganization extends AbstractPersistable<Long> {
 
     /**
+     * Код кредитной организации
+     */
+    @Column
+    private String code;
+    /**
      * Наименование кредитной организации
      */
     @Column
