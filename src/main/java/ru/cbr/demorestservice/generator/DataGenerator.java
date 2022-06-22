@@ -12,7 +12,6 @@ import ru.cbr.demorestservice.domain.model.LicenseStatus;
 import ru.cbr.demorestservice.domain.model.OrganizationForm;
 import ru.cbr.demorestservice.domain.repository.CreditOrganizationRepository;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
@@ -24,21 +23,19 @@ import java.util.Scanner;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-@ConditionalOnProperty(value = "demorestservice.data.generation.enabled", havingValue = "true")
+//@ConditionalOnProperty(value = "demorestservice.data.generation.enabled", havingValue = "true")
 public class DataGenerator implements CommandLineRunner {
 
     private final CreditOrganizationRepository creditOrganizationRepository;
     private final List<CreditOrganization> creditOrganizations = new ArrayList<>();
-
 
     @Override
     public void run(String... args) throws Exception {
         generate();
     }
 
-    @PostConstruct
     public void generate() throws Exception {
-        creditOrganizations.addAll(new CreditOrganizationCsv("data/creditOrganization.csv")
+        creditOrganizations.addAll(new CreditOrganizationCsv("data/creditOrganizations.csv")
                 .read()
                 .getModels());
         creditOrganizationRepository.saveAll(creditOrganizations);
@@ -81,7 +78,7 @@ public class DataGenerator implements CommandLineRunner {
                     StandardCharsets.UTF_8).useDelimiter("\n");
 
             try {
-                scanner.tokens().forEach(line -> models.add(create(line.split(";"))));
+                scanner.tokens().forEach(line -> models.add(create(line.split(","))));
             } finally {
                 scanner.close();
             }
