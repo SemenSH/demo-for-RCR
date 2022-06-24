@@ -39,12 +39,14 @@ public class DataGenerator implements CommandLineRunner {
         .getModels());
         departmentCbrRepository.saveAll(departments);
         log.info(">>> count of department: " + departmentCbrRepository.count());
+        log.info("<<<<<<<<<< List size: " + departments.size());
 
         creditOrganizations.addAll(new CreditOrganizationCsv("/data/credit_organizations.csv")
                 .read()
                 .getModels());
         creditOrganizationRepository.saveAll(creditOrganizations);
         log.info(">>> count of credit organizations: " + creditOrganizationRepository.count());
+        log.info("<<<<<<<<<< List size: " + creditOrganizations.size());
 
     }
 
@@ -66,7 +68,7 @@ public class DataGenerator implements CommandLineRunner {
             creditOrg.setStatus(LicenseStatus.valueOf(cols[6]));
             creditOrg.setLocation(cols[7]);
             creditOrg.setOGRN(cols[8]);
-            creditOrg.setDepartment(departments.get(0).getId());
+            creditOrg.setDepartment(1 + (long) (Math.random() * departments.size()));
             return creditOrg;
         }
     }
