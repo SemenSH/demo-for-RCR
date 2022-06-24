@@ -5,30 +5,26 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import ru.cbr.demorestservice.domain.model.CreditOrganization;
-import ru.cbr.demorestservice.domain.model.CreditOrganizationType;
-import ru.cbr.demorestservice.domain.model.LicenseStatus;
-import ru.cbr.demorestservice.domain.model.OrganizationForm;
+import ru.cbr.demorestservice.domain.model.*;
 import ru.cbr.demorestservice.domain.repository.CreditOrganizationRepository;
+import ru.cbr.demorestservice.domain.repository.DepartmentCbrRepository;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-//@ConditionalOnProperty(value = "demorestservice.data.generation.enabled", havingValue = "true")
 public class DataGenerator implements CommandLineRunner {
 
     private final CreditOrganizationRepository creditOrganizationRepository;
+    private final DepartmentCbrRepository departmentCbrRepository;
+
     private final List<CreditOrganization> creditOrganizations = new ArrayList<>();
+    private final List<DepartmentCbr> departments = new ArrayList<>();
     private final DateTimeFormatter format = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 
@@ -38,11 +34,18 @@ public class DataGenerator implements CommandLineRunner {
     }
 
     public void generate() throws Exception {
+        departments.addAll(new DepartmentCbrCsv("/data/departments_cbr.csv")
+        .read()
+        .getModels());
+        departmentCbrRepository.saveAll(departments);
+        log.info(">>> count of department: " + departmentCbrRepository.count());
+
         creditOrganizations.addAll(new CreditOrganizationCsv("/data/credit_organizations.csv")
                 .read()
                 .getModels());
         creditOrganizationRepository.saveAll(creditOrganizations);
         log.info(">>> count of credit organizations: " + creditOrganizationRepository.count());
+
     }
 
     private class CreditOrganizationCsv extends BaseCsv<CreditOrganization> {
@@ -63,7 +66,22 @@ public class DataGenerator implements CommandLineRunner {
             creditOrg.setStatus(LicenseStatus.valueOf(cols[6]));
             creditOrg.setLocation(cols[7]);
             creditOrg.setOGRN(cols[8]);
+            creditOrg.setDepartment(departments.get(0).getId());
             return creditOrg;
+        }
+    }
+    private class DepartmentCbrCsv extends BaseCsv<DepartmentCbr> {
+
+        public DepartmentCbrCsv(String filePath) {
+            super(filePath);
+        }
+
+        @Override
+        DepartmentCbr create(String[] cols) {
+            var department = new DepartmentCbr();
+            department.setName(cols[1]);
+            department.setCode(cols[2]);
+            return department;
         }
     }
 

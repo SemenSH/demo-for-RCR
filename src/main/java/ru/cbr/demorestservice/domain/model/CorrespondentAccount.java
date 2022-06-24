@@ -1,9 +1,13 @@
 package ru.cbr.demorestservice.domain.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 @Getter
 @Setter
@@ -18,11 +22,4 @@ public class CorrespondentAccount extends AbstractPersistable<Long> {
     @Column(name = "name", length = 200, nullable = false)
     private String name;
 
-    @Column(name = "creditOrganisation_id")
-    private Long creditOrganisationId;
-
-    public CorrespondentAccount(Long number, String name) {
-        this.number = number;
-        this.name = name;
-    }
 }

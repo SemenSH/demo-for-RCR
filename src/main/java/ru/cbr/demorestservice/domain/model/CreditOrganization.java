@@ -53,7 +53,7 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     /**
      *  Список корреспондентских счетов организации
      */
-    @JoinColumn(name = "creditOrganisation_id")
+    @JoinColumn(name = "credit_organization_id")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<CorrespondentAccount> correspondentAccounts = new ArrayList<>();
 
@@ -63,6 +63,9 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     @Column
     private String OGRN;
 
+    /**
+     * Организационно-правовая форма кредитной организации
+     */
     @Column(name = "form")
     @Enumerated(EnumType.STRING)
     private OrganizationForm form;
