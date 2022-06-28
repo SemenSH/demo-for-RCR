@@ -30,6 +30,7 @@ public class CreditOrganization extends AbstractPersistable<Long> {
 
     @Transient
     private Collection<DomainEvent> domainEvents = new ArrayList<>();
+    @Transient
     private CreditOrganizationServiceImpl service;
 
     /**
