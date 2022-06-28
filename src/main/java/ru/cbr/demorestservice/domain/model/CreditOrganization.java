@@ -4,11 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.domain.AfterDomainEventPublication;
+import org.springframework.data.domain.DomainEvents;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import ru.cbr.demorestservice.domain.event.DomainEvent;
+import ru.cbr.demorestservice.domain.event.DomainEventChangeLicenseStatus;
+import ru.cbr.demorestservice.domain.event.DomainEventChangeOrganizationForm;
+import ru.cbr.demorestservice.domain.service.CreditOrganizationServiceImpl;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -20,6 +27,10 @@ import java.util.List;
 @AllArgsConstructor
 @Entity(name = "credit_organization")
 public class CreditOrganization extends AbstractPersistable<Long> {
+
+    @Transient
+    private Collection<DomainEvent> domainEvents = new ArrayList<>();
+    private CreditOrganizationServiceImpl service;
 
     /**
      * Код кредитной организации
@@ -101,5 +112,25 @@ public class CreditOrganization extends AbstractPersistable<Long> {
      */
     @Column
     private Long department;
+
+    private void changeOfOrganizationForm() {
+        service.changeForm(name, form);
+        domainEvents.add(new DomainEventChangeOrganizationForm());
+    }
+
+    private void changeOfLicense() {
+        service.changeStatusLicense(name, status);
+        domainEvents.add(new DomainEventChangeLicenseStatus());
+    }
+
+    @DomainEvents
+    public Collection<DomainEvent> events() {
+        return domainEvents;
+    }
+
+    @AfterDomainEventPublication
+    public void clearEvents() {
+        domainEvents.clear();
+    }
 
 }
