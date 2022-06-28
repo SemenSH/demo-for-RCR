@@ -13,7 +13,10 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Scanner;
 
 @Slf4j
 @Component
@@ -35,8 +38,8 @@ public class DataGenerator implements CommandLineRunner {
 
     public void generate() throws Exception {
         departments.addAll(new DepartmentCbrCsv("/data/departments_cbr.csv")
-        .read()
-        .getModels());
+                .read()
+                .getModels());
         departmentCbrRepository.saveAll(departments);
         log.info(">>> count of department: " + departmentCbrRepository.count());
         log.info("<<<<<<<<<< List size: " + departments.size());
@@ -68,10 +71,12 @@ public class DataGenerator implements CommandLineRunner {
             creditOrg.setStatus(LicenseStatus.valueOf(cols[6]));
             creditOrg.setLocation(cols[7]);
             creditOrg.setOGRN(cols[8]);
+            //рандомно распределяем все кредитные организации по 7 департаментам
             creditOrg.setDepartment(1 + (long) (Math.random() * departments.size()));
             return creditOrg;
         }
     }
+
     private class DepartmentCbrCsv extends BaseCsv<DepartmentCbr> {
 
         public DepartmentCbrCsv(String filePath) {
@@ -96,19 +101,15 @@ public class DataGenerator implements CommandLineRunner {
         abstract T create(String[] cols);
 
         public BaseCsv<T> read() throws IOException {
-            var scanner = new Scanner(
+            try (var scanner = new Scanner(
                     Objects.requireNonNull(getClass().getResourceAsStream(filePath)),
-                    StandardCharsets.UTF_8).useDelimiter("\n");
-
-            try {
+                    StandardCharsets.UTF_8).useDelimiter("\n"))
+            {
                 scanner.tokens().forEach(line -> models.add(create(line.split(";"))));
 
-            } finally {
-                scanner.close();
             }
             return this;
         }
     }
 }
-
 

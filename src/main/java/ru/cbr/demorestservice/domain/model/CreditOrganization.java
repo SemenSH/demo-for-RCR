@@ -65,6 +65,13 @@ public class CreditOrganization extends AbstractPersistable<Long> {
 
     /**
      * Организационно-правовая форма кредитной организации
+     * возможные формы:
+     *     PAO;
+     *     NPAO;
+     *     OOO;
+     *     ZAO;
+     *     AO;
+     *     OAO;
      */
     @Column(name = "form")
     @Enumerated(EnumType.STRING)
