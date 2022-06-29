@@ -1,14 +1,19 @@
 package ru.cbr.demorestservice.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+import org.springframework.data.domain.AfterDomainEventPublication;
+import org.springframework.data.domain.DomainEvents;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import ru.cbr.demorestservice.domain.event.DomainEvent;
+import ru.cbr.demorestservice.domain.event.DomainEventChangeLicenseStatus;
+import ru.cbr.demorestservice.domain.event.DomainEventChangeOrganizationForm;
+import ru.cbr.demorestservice.domain.service.CreditOrganizationServiceImpl;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -21,6 +26,15 @@ import java.util.List;
 @Entity(name = "credit_organization")
 public class CreditOrganization extends AbstractPersistable<Long> {
 
+    @Transient
+    @JsonIgnore
+    private Collection<DomainEvent> domainEvents = new ArrayList<>();
+
+    /**
+     * Код кредитной организации
+     */
+    @Column
+    private String code;
     /**
      * Наименование кредитной организации
      */
@@ -48,7 +62,7 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     /**
      *  Список корреспондентских счетов организации
      */
-    @JoinColumn(name = "creditOrganisation_id")
+    @JoinColumn(name = "credit_organization_id")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<CorrespondentAccount> correspondentAccounts = new ArrayList<>();
 
@@ -58,6 +72,16 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     @Column
     private String OGRN;
 
+    /**
+     * Организационно-правовая форма кредитной организации
+     * возможные формы:
+     *     PAO;
+     *     NPAO;
+     *     OOO;
+     *     ZAO;
+     *     AO;
+     *     OAO;
+     */
     @Column(name = "form")
     @Enumerated(EnumType.STRING)
     private OrganizationForm form;
@@ -86,5 +110,35 @@ public class CreditOrganization extends AbstractPersistable<Long> {
      */
     @Column
     private Long department;
+
+    /**
+     * Изменение организационно-правовой формы кредитной организации и создание события
+     * Например: АО -> ПАО
+     * @param form
+     */
+    public void changeOfOrganizationForm(OrganizationForm form) {
+        this.form = form;
+        domainEvents.add(new DomainEventChangeOrganizationForm());
+    }
+
+    /**
+     * Изменение текущего статуса лицензии кредитной организации и создание события
+     * Например: ACTIVE -> ANNULLED
+     * @param status
+     */
+    public void changeOfLicense(LicenseStatus status) {
+        this.status = status;
+        domainEvents.add(new DomainEventChangeLicenseStatus());
+    }
+
+    @DomainEvents
+    public Collection<DomainEvent> events() {
+        return domainEvents;
+    }
+
+    @AfterDomainEventPublication
+    public void clearEvents() {
+        domainEvents.clear();
+    }
 
 }

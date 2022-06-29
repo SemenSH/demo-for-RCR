@@ -1,47 +1,40 @@
-//package ru.cbr.demorestservice.domain.service;
-//
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.domain.Sort;
-//import ru.cbr.demorestservice.domain.model.CorrespondentAccount;
-//import ru.cbr.demorestservice.domain.model.CreditOrganization;
-//import ru.cbr.demorestservice.domain.model.CreditOrganizationType;
-//import ru.cbr.demorestservice.domain.model.DepartmentCbr;
-//
-//import java.util.Set;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//
-//class CreditOrganizationServiceImplTest {
-//    @Autowired
-//    private CreditOrganizationServiceImpl creditOrganizationService;
-//
-//    @BeforeEach
-//    void setUp() {
-//        CreditOrganization sber = new CreditOrganization( "SBER", "1111111111", CreditOrganizationType.BANK);
-//        CorrespondentAccount ca = new CorrespondentAccount( 22333L, "acc#1");
-//        CorrespondentAccount ca2 = new CorrespondentAccount(777888L, "acc#2");
-//        DepartmentCbr departmentCbr = new DepartmentCbr(
-//                "ГУ Банка России по Свердловской области", "65");
-//        sber.setCorrespondentAccounts(Set.of(ca, ca2));
-//        sber.setDepartment(01L);
-//
-//        CreditOrganization vtb = new CreditOrganization( "VTB", "222222222", CreditOrganizationType.BANK);
-//        CorrespondentAccount account1 = new CorrespondentAccount( 22333L, "acc#1");
-//        CorrespondentAccount account2 = new CorrespondentAccount(777888L, "acc#2");
-//        DepartmentCbr department = new DepartmentCbr(
-//                "ГУ Банка России по Свердловской области", "08");
-//        vtb.setCorrespondentAccounts(Set.of(account1, account2));
-//        vtb.setDepartment(02L);
-//    }
-//
-//    @Test
-//    public void should_split_by_page_asc() {
-//        boolean founded = creditOrganizationService.findAtPage(1,1,
-//                Sort.Direction.ASC, "name")
-//                .get().anyMatch(co -> co.getName().equals("VTB"));
-//
-//        assertTrue(founded);
-//    }
-//}
+package ru.cbr.demorestservice.domain.service;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import ru.cbr.demorestservice.domain.event.DomainEvent;
+import ru.cbr.demorestservice.domain.event.DomainEventListener;
+import ru.cbr.demorestservice.domain.model.CreditOrganization;
+import ru.cbr.demorestservice.domain.model.OrganizationForm;
+import ru.cbr.demorestservice.domain.repository.CreditOrganizationRepository;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+@SpringJUnitConfig
+@SpringBootTest
+class CreditOrganizationServiceImplTest {
+    @Autowired
+    CreditOrganizationRepository creditOrganizationRepository;
+    @Autowired
+    private CreditOrganizationServiceImpl creditOrganizationService;
+    @MockBean
+    private DomainEventListener eventHandler;
+
+    @Test
+    @DisplayName("should publish and handle an entity event")
+    public void changeForm() {
+
+        //when
+        CreditOrganization creditOrganization = creditOrganizationService.changeForm(10L, OrganizationForm.OOO);
+        creditOrganizationRepository.save(creditOrganization);
+
+        //then
+        verify(eventHandler, times(1)).handleEvent(any(DomainEvent.class));
+    }
+}

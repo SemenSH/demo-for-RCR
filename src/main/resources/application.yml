@@ -1,6 +1,10 @@
 server:
   port: 8081
 spring:
+  data:
+    rest:
+      base-path: /api
+  main.allow-bean-definition-overriding: true
   h2:
     console:
       enabled: true

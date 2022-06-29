@@ -8,5 +8,6 @@ public enum OrganizationForm {
     NPAO,
     OOO,
     ZAO,
+    AO,
     OAO;
 }
