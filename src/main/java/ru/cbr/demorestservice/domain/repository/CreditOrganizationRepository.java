@@ -4,8 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import ru.cbr.demorestservice.domain.model.CreditOrganization;
 
+import java.util.List;
+
 @RepositoryRestResource(collectionResourceRel = "clients", path = "clients")
 public interface CreditOrganizationRepository extends JpaRepository<CreditOrganization, Long> {
 
-    CreditOrganization findByNameIgnoreCase(String name);
+    List<CreditOrganization> findByNameIgnoreCase(String name);
 }

@@ -1,10 +1,7 @@
 package ru.cbr.demorestservice.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.domain.AfterDomainEventPublication;
 import org.springframework.data.domain.DomainEvents;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -30,6 +27,7 @@ import java.util.List;
 public class CreditOrganization extends AbstractPersistable<Long> {
 
     @Transient
+    @JsonIgnore
     private Collection<DomainEvent> domainEvents = new ArrayList<>();
 
     /**

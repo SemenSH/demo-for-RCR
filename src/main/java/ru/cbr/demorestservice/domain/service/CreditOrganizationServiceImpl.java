@@ -9,7 +9,6 @@ import ru.cbr.demorestservice.domain.model.OrganizationForm;
 import ru.cbr.demorestservice.domain.repository.CreditOrganizationRepository;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -25,7 +24,8 @@ public class CreditOrganizationServiceImpl implements CreditOrganizationService 
 
     @Override
     public CreditOrganization changeForm(Long id, @NonNull OrganizationForm form) {
-        CreditOrganization co = creditOrganizationRepository.findById(id).orElseThrow();
+        var co = creditOrganizationRepository.findById(id).orElse(null);
+        assert co != null;
         co.changeOfOrganizationForm(form);
         creditOrganizationRepository.save(co);
         return co;
@@ -33,7 +33,7 @@ public class CreditOrganizationServiceImpl implements CreditOrganizationService 
 
     @Override
     public CreditOrganization changeStatusLicense(Long id, @NonNull LicenseStatus status) {
-        CreditOrganization co = creditOrganizationRepository.findById(id).orElseThrow();
+        var co = creditOrganizationRepository.findById(id).orElseThrow();
         co.changeOfLicense(status);
         creditOrganizationRepository.save(co);
         return co;
