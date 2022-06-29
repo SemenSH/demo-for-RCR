@@ -1,7 +1,7 @@
 package ru.cbr.demorestservice.domain.service;
 
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import ru.cbr.demorestservice.domain.model.CreditOrganization;
 import ru.cbr.demorestservice.domain.model.LicenseStatus;
@@ -9,6 +9,7 @@ import ru.cbr.demorestservice.domain.model.OrganizationForm;
 import ru.cbr.demorestservice.domain.repository.CreditOrganizationRepository;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -23,12 +24,18 @@ public class CreditOrganizationServiceImpl implements CreditOrganizationService 
 
 
     @Override
-    public void changeForm(String name, OrganizationForm form) {
-        creditOrganizationRepository.findByName(name).setForm(form);
+    public CreditOrganization changeForm(Long id, @NonNull OrganizationForm form) {
+        CreditOrganization co = creditOrganizationRepository.findById(id).orElseThrow();
+        co.changeOfOrganizationForm(form);
+        creditOrganizationRepository.save(co);
+        return co;
     }
 
     @Override
-    public void changeStatusLicense(String name, LicenseStatus status) {
-        creditOrganizationRepository.findByName(name).setStatus(status);
+    public CreditOrganization changeStatusLicense(Long id, @NonNull LicenseStatus status) {
+        CreditOrganization co = creditOrganizationRepository.findById(id).orElseThrow();
+        co.changeOfLicense(status);
+        creditOrganizationRepository.save(co);
+        return co;
     }
 }

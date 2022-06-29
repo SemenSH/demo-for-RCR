@@ -1,5 +1,6 @@
 package ru.cbr.demorestservice.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,8 +31,6 @@ public class CreditOrganization extends AbstractPersistable<Long> {
 
     @Transient
     private Collection<DomainEvent> domainEvents = new ArrayList<>();
-    @Transient
-    private CreditOrganizationServiceImpl service;
 
     /**
      * Код кредитной организации
@@ -114,13 +113,23 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     @Column
     private Long department;
 
-    private void changeOfOrganizationForm() {
-        service.changeForm(name, form);
+    /**
+     * Изменение организационно-правовой формы кредитной организации и создание события
+     * Например: АО -> ПАО
+     * @param form
+     */
+    public void changeOfOrganizationForm(OrganizationForm form) {
+        this.form = form;
         domainEvents.add(new DomainEventChangeOrganizationForm());
     }
 
-    private void changeOfLicense() {
-        service.changeStatusLicense(name, status);
+    /**
+     * Изменение текущего статуса лицензии кредитной организации и создание события
+     * Например: ACTIVE -> ANNULLED
+     * @param status
+     */
+    public void changeOfLicense(LicenseStatus status) {
+        this.status = status;
         domainEvents.add(new DomainEventChangeLicenseStatus());
     }
 
