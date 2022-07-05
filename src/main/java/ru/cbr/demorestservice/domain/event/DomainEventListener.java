@@ -9,6 +9,6 @@ public class DomainEventListener {
 
     @EventListener
     public void handleEvent(DomainEvent event) {
-        log.info(">>> handle received event: " + event);
+        log.info(">>> handle received domain event: " + event);
     }
 }

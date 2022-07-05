@@ -2,9 +2,11 @@ package ru.cbr.demorestservice.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.AfterDomainEventPublication;
 import org.springframework.data.domain.DomainEvents;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import ru.cbr.demorestservice.domain.event.DomainEvent;
 import ru.cbr.demorestservice.domain.event.DomainEventChangeLicenseStatus;
 import ru.cbr.demorestservice.domain.event.DomainEventChangeOrganizationForm;
@@ -24,11 +26,23 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "credit_organization")
+//@EntityListeners(AuditingEntityListener.class)
 public class CreditOrganization extends AbstractPersistable<Long> {
 
     @Transient
     @JsonIgnore
     private Collection<DomainEvent> domainEvents = new ArrayList<>();
+
+    @Transient
+    @JsonIgnore
+    @ToString.Exclude
+    private CreditOrganization previousState;
+
+    @PostLoad
+    protected void postLoad() {
+        previousState = new CreditOrganization();
+        BeanUtils.copyProperties(this, previousState);
+    }
 
     /**
      * Код кредитной организации
