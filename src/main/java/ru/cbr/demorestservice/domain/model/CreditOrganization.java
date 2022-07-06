@@ -2,15 +2,14 @@ package ru.cbr.demorestservice.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.AfterDomainEventPublication;
 import org.springframework.data.domain.DomainEvents;
 import org.springframework.data.jpa.domain.AbstractPersistable;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import ru.cbr.demorestservice.domain.event.DomainEvent;
 import ru.cbr.demorestservice.domain.event.DomainEventChangeLicenseStatus;
 import ru.cbr.demorestservice.domain.event.DomainEventChangeOrganizationForm;
-import ru.cbr.demorestservice.domain.service.CreditOrganizationServiceImpl;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -21,6 +20,7 @@ import java.util.List;
 /**
  * Модель кредитной организации
  */
+@Slf4j
 @Getter
 @Setter
 @NoArgsConstructor
@@ -29,19 +29,23 @@ import java.util.List;
 //@EntityListeners(AuditingEntityListener.class)
 public class CreditOrganization extends AbstractPersistable<Long> {
 
-    @Transient
-    @JsonIgnore
-    private Collection<DomainEvent> domainEvents = new ArrayList<>();
-
+    /**
+     * Предыдущее состояние объекта перед его поиском, изменением, загрузкой в контекст хранения
+     */
     @Transient
     @JsonIgnore
     @ToString.Exclude
     private CreditOrganization previousState;
 
+    /**
+     * Вызывается после загрузки объекта, поиска по id, изменения уже хранимого объекта,
+     * сохраняет предыдущее состояние объекта
+     */
     @PostLoad
     protected void postLoad() {
         previousState = new CreditOrganization();
         BeanUtils.copyProperties(this, previousState);
+        log.info(">>>>>>>> postLoad complete -> previous state: {}", this);
     }
 
     /**
@@ -56,7 +60,7 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     private String name;
 
     /**
-     *  Регистрационный номер
+     * Регистрационный номер
      */
     @Column
     private String regNumber;
@@ -74,14 +78,14 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     private CreditOrganizationType type;
 
     /**
-     *  Список корреспондентских счетов организации
+     * Список корреспондентских счетов организации
      */
     @JoinColumn(name = "credit_organization_id")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<CorrespondentAccount> correspondentAccounts = new ArrayList<>();
 
     /**
-     *  ОГРН организации
+     * ОГРН организации
      */
     @Column
     private String OGRN;
@@ -89,12 +93,12 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     /**
      * Организационно-правовая форма кредитной организации
      * возможные формы:
-     *     PAO;
-     *     NPAO;
-     *     OOO;
-     *     ZAO;
-     *     AO;
-     *     OAO;
+     * PAO;
+     * NPAO;
+     * OOO;
+     * ZAO;
+     * AO;
+     * OAO;
      */
     @Column(name = "form")
     @Enumerated(EnumType.STRING)
@@ -120,14 +124,22 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     private String location;
 
     /**
-     *  Однонаправленная ссылка на департамент ЦБ, контролирующий данную организацию
+     * Однонаправленная ссылка на департамент ЦБ, контролирующий данную организацию
      */
     @Column
     private Long department;
 
     /**
+     * Список доменных событий
+     */
+    @Transient
+    @JsonIgnore
+    private Collection<DomainEvent> domainEvents = new ArrayList<>();
+
+    /**
      * Изменение организационно-правовой формы кредитной организации и создание события
      * Например: АО -> ПАО
+     *
      * @param form
      */
     public void changeOfOrganizationForm(OrganizationForm form) {
@@ -138,6 +150,7 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     /**
      * Изменение текущего статуса лицензии кредитной организации и создание события
      * Например: ACTIVE -> ANNULLED
+     *
      * @param status
      */
     public void changeOfLicense(LicenseStatus status) {

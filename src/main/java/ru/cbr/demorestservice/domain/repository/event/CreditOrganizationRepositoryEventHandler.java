@@ -19,10 +19,16 @@ public class CreditOrganizationRepositoryEventHandler {
 
     @HandleBeforeSave
     public void handleCreditOrganizationBeforeSave(CreditOrganization creditOrganization) {
-        creditOrganizationService.changeForm(creditOrganization.getId(), creditOrganization.getForm());
+        if (!creditOrganization.getPreviousState().equals(creditOrganization)) {
+            String name = creditOrganization.getName();
+            log.info("credit organization {} before save with form: {}", name, creditOrganization.getPreviousState().getForm());
+        }
+    }
+
+    @HandleAfterSave
+    public void handleCreditOrganizationAfterSave(CreditOrganization creditOrganization) {
         String name = creditOrganization.getName();
-        log.info("credit organization {} before save ",
-                creditOrganization.toString());
+        log.info("credit organization {} after save with new form {}", name, creditOrganization.getForm());
     }
 
     @HandleBeforeCreate
@@ -31,12 +37,6 @@ public class CreditOrganizationRepositoryEventHandler {
         String name = creditOrganization.getName();
     }
 
-
-    @HandleAfterSave
-    public void handleCreditOrganizationAfterSave(CreditOrganization creditOrganization) {
-        log.info("credit organization after save");
-        String name = creditOrganization.getName();
-    }
     @HandleAfterCreate
     public void handleCreditOrganizationAfterCreate(CreditOrganization creditOrganization) {
         log.info("credit organization after create");
