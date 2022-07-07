@@ -28,7 +28,7 @@ public class CreditOrganizationRepositoryEventHandler {
     @HandleAfterSave
     public void handleCreditOrganizationAfterSave(CreditOrganization creditOrganization) {
         String name = creditOrganization.getName();
-        log.info("credit organization {} after save with new form {}", name, creditOrganization.getForm());
+        log.info("credit organization {} after save with new form: {}", name, creditOrganization.getForm());
     }
 
     @HandleBeforeCreate
