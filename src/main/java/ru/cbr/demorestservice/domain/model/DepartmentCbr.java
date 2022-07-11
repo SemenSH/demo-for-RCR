@@ -9,6 +9,9 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,5 +26,8 @@ public class DepartmentCbr extends AbstractPersistable<Long> {
 
     @Column
     private String code;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<CreditOrganization> creditOrganizations;
 
 }

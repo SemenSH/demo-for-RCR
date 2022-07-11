@@ -7,7 +7,7 @@ import ru.cbr.demorestservice.domain.model.CreditOrganization;
 
 import java.util.List;
 
-@RepositoryRestResource(collectionResourceRel = "clients", path = "clients")
+@RepositoryRestResource(collectionResourceRel = "creditOrganizations", path = "creditOrganizations")
 public interface CreditOrganizationRepository extends JpaRepository<CreditOrganization, Long>,
         RevisionRepository<CreditOrganization, Long, Integer> {
 
