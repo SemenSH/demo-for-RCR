@@ -1,24 +1,19 @@
 package ru.cbr.demorestservice.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.envers.Audited;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.AfterDomainEventPublication;
 import org.springframework.data.domain.DomainEvents;
 import org.springframework.data.jpa.domain.AbstractPersistable;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import ru.cbr.demorestservice.domain.event.DomainEvent;
 import ru.cbr.demorestservice.domain.event.DomainEventChangeLicenseStatus;
 import ru.cbr.demorestservice.domain.event.DomainEventChangeOrganizationForm;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -29,6 +24,7 @@ import java.util.List;
 @Audited
 @Slf4j
 @Getter
+@EqualsAndHashCode
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -133,8 +129,8 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     /**
      * Однонаправленная ссылка на департамент ЦБ, контролирующий данную организацию
      */
-    @Column
-    private Long department;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private DepartmentCbr department;
 
     /**
      * Список доменных событий

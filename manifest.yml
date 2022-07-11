@@ -1,9 +1,10 @@
+# для загрузки приложения в облако с поддержкой Cloud Foundry
 applications:
 - name: demo-rest-service
   buildpack: 'https://github.com/cloudfoundry/java-buildpack.git#v3.3.0'
   instances: 1
   random-route: true
-  memory: 896MB
+  memory: 1G
   path: target/demo-rest-service-0.0.1-SNAPSHOT.jar
   env:
     DEBUG: "true"

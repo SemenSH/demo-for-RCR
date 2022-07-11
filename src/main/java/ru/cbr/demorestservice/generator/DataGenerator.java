@@ -71,8 +71,6 @@ public class DataGenerator implements CommandLineRunner {
             creditOrg.setStatus(LicenseStatus.valueOf(cols[6]));
             creditOrg.setLocation(cols[7]);
             creditOrg.setOGRN(cols[8]);
-            //рандомно распределяем все кредитные организации по 7 департаментам
-            creditOrg.setDepartment(1 + (long) (Math.random() * departments.size()));
             return creditOrg;
         }
     }
