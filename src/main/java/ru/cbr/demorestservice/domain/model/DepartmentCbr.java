@@ -7,10 +7,8 @@ import lombok.Setter;
 import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -28,6 +26,6 @@ public class DepartmentCbr extends AbstractPersistable<Long> {
     private String code;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
-    private List<CreditOrganization> creditOrganizations;
+    private List<CreditOrganization> creditOrganizations = new ArrayList<>();
 
 }

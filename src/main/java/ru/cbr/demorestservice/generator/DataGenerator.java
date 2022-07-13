@@ -72,6 +72,7 @@ public class DataGenerator implements CommandLineRunner {
             creditOrg.setStatus(LicenseStatus.valueOf(cols[6]));
             creditOrg.setLocation(cols[7]);
             creditOrg.setOGRN(cols[8]);
+            //рандомно распределяем каждую ко к одному из 7 департаментов
             creditOrg.setDepartment(departments.get((int) (Math.random() * 7)));
             return creditOrg;
         }
@@ -88,7 +89,7 @@ public class DataGenerator implements CommandLineRunner {
             var department = new DepartmentCbr();
             department.setName(cols[1]);
             department.setCode(cols[2]);
-            department.setCreditOrganizations(creditOrganizations);
+           // department.setCreditOrganizations(creditOrganizations);
             return department;
         }
     }
