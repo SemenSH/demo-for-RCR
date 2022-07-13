@@ -127,9 +127,10 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     private String location;
 
     /**
-     * Однонаправленная ссылка на департамент ЦБ, контролирующий данную организацию
+     * Двунаправленная ссылка на департамент ЦБ, контролирующий данную организацию
      */
     @ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "credit_organization_id")
     private DepartmentCbr department;
 
     /**

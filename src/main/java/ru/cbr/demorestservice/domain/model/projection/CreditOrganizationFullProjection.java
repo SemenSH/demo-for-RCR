@@ -33,5 +33,5 @@ public interface CreditOrganizationFullProjection {
     String getLocation();
 
     @Value("#{target.department.name}")
-    String getDepartmentCbr();
+    String getDepartment();
 }

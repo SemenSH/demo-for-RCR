@@ -27,7 +27,7 @@ public class DepartmentCbr extends AbstractPersistable<Long> {
     @Column
     private String code;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
     private List<CreditOrganization> creditOrganizations;
 
 }

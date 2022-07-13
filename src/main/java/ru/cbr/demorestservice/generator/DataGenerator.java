@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
 @Component
@@ -71,6 +72,7 @@ public class DataGenerator implements CommandLineRunner {
             creditOrg.setStatus(LicenseStatus.valueOf(cols[6]));
             creditOrg.setLocation(cols[7]);
             creditOrg.setOGRN(cols[8]);
+            creditOrg.setDepartment(departments.get((int) (Math.random() * 7)));
             return creditOrg;
         }
     }
@@ -86,6 +88,7 @@ public class DataGenerator implements CommandLineRunner {
             var department = new DepartmentCbr();
             department.setName(cols[1]);
             department.setCode(cols[2]);
+            department.setCreditOrganizations(creditOrganizations);
             return department;
         }
     }
@@ -108,6 +111,11 @@ public class DataGenerator implements CommandLineRunner {
             }
             return this;
         }
+    }
+
+    private long generateRandomNumber(int n) {
+        long min = (long) Math.pow(10, n - 1);
+        return ThreadLocalRandom.current().nextLong(min, min * 10);
     }
 }
 
