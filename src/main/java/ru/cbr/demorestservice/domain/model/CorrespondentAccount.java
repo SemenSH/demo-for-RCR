@@ -8,8 +8,10 @@ import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 
+@Embeddable
 @Audited
 @Getter
 @Setter

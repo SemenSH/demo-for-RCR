@@ -40,6 +40,10 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     @ToString.Exclude
     private CreditOrganization previousState;
 
+    public CreditOrganization(long l, String name) {
+
+    }
+
     /**
      * Вызывается после загрузки объекта, поиска по id, изменения уже хранимого объекта,
      * сохраняет предыдущее состояние объекта
@@ -83,15 +87,16 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     /**
      * Список корреспондентских счетов организации
      */
-    @JoinColumn(name = "credit_organization_id")
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //@JoinColumn(name = "credit_organization_id")
+    //@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ElementCollection(targetClass = CorrespondentAccount.class)
     private List<CorrespondentAccount> correspondentAccounts = new ArrayList<>();
 
     /**
      * ОГРН организации
      */
     @Column
-    private String OGRN;
+    private OGRN OGRN;
 
     /**
      * Организационно-правовая форма кредитной организации
