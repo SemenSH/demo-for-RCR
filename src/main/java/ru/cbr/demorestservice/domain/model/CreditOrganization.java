@@ -70,7 +70,8 @@ public class CreditOrganization extends AbstractPersistable<Long> {
      * Регистрационный номер
      */
     @Column
-    private String regNumber;
+    @OneToOne(mappedBy = "credit_organization", fetch = FetchType.LAZY)
+    private CreditOrganizationRegNum regNumber;
 
     /**
      * Тип кредитной организации:
@@ -96,7 +97,8 @@ public class CreditOrganization extends AbstractPersistable<Long> {
      * ОГРН организации
      */
     @Column
-    private OGRN OGRN;
+    @OneToOne(mappedBy = "credit_organization", fetch = FetchType.LAZY)
+    private Ogrn OGRN;
 
     /**
      * Организационно-правовая форма кредитной организации
