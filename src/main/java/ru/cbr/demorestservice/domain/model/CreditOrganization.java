@@ -69,8 +69,8 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     /**
      * Регистрационный номер
      */
-    @Column
-    @OneToOne(mappedBy = "credit_organization", fetch = FetchType.LAZY)
+//    @Column
+    @OneToOne(mappedBy = "creditOrganization", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private CreditOrganizationRegNum regNumber;
 
     /**
@@ -96,8 +96,8 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     /**
      * ОГРН организации
      */
-    @Column
-    @OneToOne(mappedBy = "credit_organization", fetch = FetchType.LAZY)
+    //@Column
+    @OneToOne(mappedBy = "creditOrganization", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Ogrn OGRN;
 
     /**

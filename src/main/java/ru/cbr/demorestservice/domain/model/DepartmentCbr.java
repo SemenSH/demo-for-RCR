@@ -28,4 +28,14 @@ public class DepartmentCbr extends AbstractPersistable<Long> {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
     private List<CreditOrganization> creditOrganizations = new ArrayList<>();
 
+    public void addCreditOrganization(CreditOrganization organization) {
+        if (creditOrganizations == null) {
+            throw new NullPointerException("organization cannot be null");
+        }
+        if (organization.getDepartment() != null) {
+            throw new IllegalStateException("organization is already registered in this department");
+        }
+        getCreditOrganizations().add(organization);
+        organization.setDepartment(this);
+    }
 }
