@@ -18,7 +18,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Модель кредитной организации
@@ -32,6 +31,11 @@ import java.util.List;
 @AllArgsConstructor
 @Entity(name = "credit_organization")
 //@EntityListeners(AuditingEntityListener.class)
+@NamedEntityGraph(name = "credit_organization_graph",
+        attributeNodes = {
+                @NamedAttributeNode("department"),
+                @NamedAttributeNode("correspondentAccounts"),
+        })
 public class CreditOrganization extends AbstractPersistable<Long> {
 
     /**
@@ -91,8 +95,8 @@ public class CreditOrganization extends AbstractPersistable<Long> {
      */
     //@JoinColumn(name = "credit_organization_id")
     //@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @ElementCollection(targetClass = CorrespondentAccount.class)
-    private List<CorrespondentAccount> correspondentAccounts = new ArrayList<>();
+    @ElementCollection(targetClass = CorrespondentAccount.class, fetch = FetchType.LAZY)
+    private Collection<CorrespondentAccount> correspondentAccounts = new ArrayList<>();
 
     /**
      * ОГРН организации
@@ -137,7 +141,7 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     /**
      * Двунаправленная ссылка на департамент ЦБ, контролирующий данную организацию
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     //@JoinColumn(name = "credit_organization_id")
     private DepartmentCbr department;
 

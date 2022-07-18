@@ -22,7 +22,7 @@ public interface CreditOrganizationFullProjection {
 
     List<CorrespondentAccount> getCorrespondentAccounts();
 
-    String getOGRN();
+    String getOgrn();
 
     OrganizationForm getForm();
 
