@@ -5,7 +5,7 @@ import ru.cbr.demorestservice.domain.model.CreditOrganizationRegNum;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-@Converter
+@Converter(autoApply = true)
 public class RegNumConverter implements AttributeConverter<CreditOrganizationRegNum, String> {
     @Override
     public String convertToDatabaseColumn(CreditOrganizationRegNum attribute) {

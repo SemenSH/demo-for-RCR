@@ -5,8 +5,9 @@ import ru.cbr.demorestservice.domain.model.Ogrn;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-@Converter
+@Converter(autoApply = true)
 public class OgrnConverter implements AttributeConverter<Ogrn, String> {
+
     @Override
     public String convertToDatabaseColumn(Ogrn attribute) {
         return attribute.getOgrn();
