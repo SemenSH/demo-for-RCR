@@ -11,6 +11,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import ru.cbr.demorestservice.domain.event.DomainEvent;
 import ru.cbr.demorestservice.domain.event.DomainEventChangeLicenseStatus;
 import ru.cbr.demorestservice.domain.event.DomainEventChangeOrganizationForm;
+import ru.cbr.demorestservice.domain.model.converter.OgrnConverter;
+import ru.cbr.demorestservice.domain.model.converter.RegNumConverter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -24,7 +26,7 @@ import java.util.List;
 @Audited
 @Slf4j
 @Getter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -69,8 +71,8 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     /**
      * Регистрационный номер
      */
-//    @Column
-    @OneToOne(mappedBy = "creditOrganization", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Column
+    @Convert(converter = RegNumConverter.class, attributeName = "regNumber")
     private CreditOrganizationRegNum regNumber;
 
     /**
@@ -96,8 +98,8 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     /**
      * ОГРН организации
      */
-    //@Column
-    @OneToOne(mappedBy = "creditOrganization", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Column
+    @Convert(converter = OgrnConverter.class, attributeName = "OGRN")
     private Ogrn OGRN;
 
     /**
