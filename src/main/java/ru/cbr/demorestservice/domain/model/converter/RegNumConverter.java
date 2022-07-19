@@ -1,6 +1,6 @@
 package ru.cbr.demorestservice.domain.model.converter;
 
-import ru.cbr.demorestservice.domain.model.CreditOrganizationRegNum;
+import ru.cbr.demorestservice.domain.type.CreditOrganizationRegNum;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

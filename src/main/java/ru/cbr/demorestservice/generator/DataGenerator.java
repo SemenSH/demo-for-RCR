@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 import ru.cbr.demorestservice.domain.model.*;
 import ru.cbr.demorestservice.domain.repository.CreditOrganizationRepository;
 import ru.cbr.demorestservice.domain.repository.DepartmentCbrRepository;
+import ru.cbr.demorestservice.domain.model.CreditOrganizationType;
+import ru.cbr.demorestservice.domain.type.CreditOrganizationRegNum;
+import ru.cbr.demorestservice.domain.type.Ogrn;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

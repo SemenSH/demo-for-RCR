@@ -1,4 +1,4 @@
-package ru.cbr.demorestservice.domain.model;
+package ru.cbr.demorestservice.domain.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,16 +12,16 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Audited
 @Getter
 @Setter
-public class Ogrn implements Serializable {
+public class CreditOrganizationRegNum implements Serializable {
 
     @Column
-    @Size(min = 13, max = 13)
-    @Pattern(regexp = "/^(?!.*(\\d).*\\1)[13](?: *, *[13])*$/")
-    private String ogrn;
-
+    @Size(max = 4)
+    // с пробелами @Pattern(regexp = "/^(?!.*(\\d).*\\1)[1-4](?: *, *[1-4])*$/")
+    @Pattern(regexp = "/^(?!.*(\\d).*\\1)[1-4](?:,[1-4])*$/")
+    private String regNum;
 }

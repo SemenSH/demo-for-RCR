@@ -13,11 +13,14 @@ import ru.cbr.demorestservice.domain.event.DomainEventChangeLicenseStatus;
 import ru.cbr.demorestservice.domain.event.DomainEventChangeOrganizationForm;
 import ru.cbr.demorestservice.domain.model.converter.OgrnConverter;
 import ru.cbr.demorestservice.domain.model.converter.RegNumConverter;
+import ru.cbr.demorestservice.domain.type.CreditOrganizationRegNum;
+import ru.cbr.demorestservice.domain.type.Ogrn;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Модель кредитной организации
@@ -93,10 +96,8 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     /**
      * Список корреспондентских счетов организации
      */
-    //@JoinColumn(name = "credit_organization_id")
-    //@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @ElementCollection(targetClass = CorrespondentAccount.class, fetch = FetchType.LAZY)
-    private Collection<CorrespondentAccount> correspondentAccounts = new ArrayList<>();
+    private List<CorrespondentAccount> correspondentAccounts = new ArrayList<>();
 
     /**
      * ОГРН организации

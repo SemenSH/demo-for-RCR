@@ -2,13 +2,17 @@ package ru.cbr.demorestservice.domain.service;
 
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Service;
 import ru.cbr.demorestservice.domain.model.CreditOrganization;
 import ru.cbr.demorestservice.domain.model.LicenseStatus;
 import ru.cbr.demorestservice.domain.model.OrganizationForm;
+import ru.cbr.demorestservice.domain.model.QCreditOrganization;
 import ru.cbr.demorestservice.domain.repository.CreditOrganizationRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
+
 
 @Service
 @Transactional

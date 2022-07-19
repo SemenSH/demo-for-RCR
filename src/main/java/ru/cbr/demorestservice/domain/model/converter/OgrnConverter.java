@@ -1,6 +1,6 @@
 package ru.cbr.demorestservice.domain.model.converter;
 
-import ru.cbr.demorestservice.domain.model.Ogrn;
+import ru.cbr.demorestservice.domain.type.Ogrn;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

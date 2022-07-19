@@ -21,7 +21,7 @@ import javax.persistence.Entity;
 public class CorrespondentAccount extends AbstractPersistable<Long> {
 
     @Column(name = "number", nullable = false)
-    private Long number;
+    private String number;
 
     @Column(name = "name", length = 200, nullable = false)
     private String name;
