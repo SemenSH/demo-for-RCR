@@ -13,6 +13,7 @@ public class QuerydslCustomRepositoryImpl extends QuerydslRepositorySupport impl
         super(CreditOrganization.class);
     }
 
+
     @Override
     public List<CreditOrganization> findByStatus(LicenseStatus status) {
         QCreditOrganization creditor = QCreditOrganization.creditOrganization;

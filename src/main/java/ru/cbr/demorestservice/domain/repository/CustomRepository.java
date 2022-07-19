@@ -10,9 +10,9 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.io.Serializable;
 
 @NoRepositoryBean
-interface CustomRepository<T, P extends EntityPathBase<T>, ID extends Serializable>
+public interface CustomRepository<T, P extends EntityPathBase<T>, ID extends Serializable>
         extends JpaRepository<T, ID>, QuerydslPredicateExecutor<T>, QuerydslBinderCustomizer<P> {
 
     @Override
-    void customize(QuerydslBindings bindings, P root);
+    default void customize(QuerydslBindings bindings, P root){}
 }

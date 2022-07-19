@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.repository.history.RevisionRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import ru.cbr.demorestservice.domain.model.CreditOrganization;
-import ru.cbr.demorestservice.domain.model.LicenseStatus;
 import ru.cbr.demorestservice.domain.model.QCreditOrganization;
 
 import java.util.List;
@@ -29,5 +28,4 @@ public interface CreditOrganizationRepository extends CustomRepository<CreditOrg
     @EntityGraph(value = "credit_organization_graph", type = EntityGraph.EntityGraphType.FETCH)
     Optional<CreditOrganization> findById(Long aLong);
 
-    List<CreditOrganization> getCreditorByStatus(LicenseStatus status);
 }
