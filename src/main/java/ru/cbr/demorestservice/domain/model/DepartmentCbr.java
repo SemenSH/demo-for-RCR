@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class DepartmentCbr extends AbstractPersistable<Long> {
     @Column
     private String code;
 
+    @NotAudited
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
     private List<CreditOrganization> creditOrganizations = new ArrayList<>();
 

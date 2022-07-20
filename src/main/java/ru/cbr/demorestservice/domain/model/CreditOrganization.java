@@ -3,6 +3,7 @@ package ru.cbr.demorestservice.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.envers.Audited;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.AfterDomainEventPublication;
@@ -28,7 +29,6 @@ import java.util.List;
 @Audited
 @Slf4j
 @Getter
-@EqualsAndHashCode(callSuper = false)
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -97,7 +97,8 @@ public class CreditOrganization extends AbstractPersistable<Long> {
      * Список корреспондентских счетов организации
      */
     @ElementCollection(targetClass = CorrespondentAccount.class, fetch = FetchType.LAZY)
-    private List<CorrespondentAccount> correspondentAccounts = new ArrayList<>();
+    //@Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    private Collection<CorrespondentAccount> correspondentAccounts = new ArrayList<>();
 
     /**
      * ОГРН организации

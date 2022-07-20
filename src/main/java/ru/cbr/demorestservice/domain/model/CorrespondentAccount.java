@@ -9,14 +9,14 @@ import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 
 @Embeddable
-@Audited
+//@Audited
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
-@Entity(name = "correspondent_account")
-public class CorrespondentAccount extends AbstractPersistable<Long> {
+@EqualsAndHashCode(callSuper = false)
+//@Entity(name = "correspondent_account")
+public class CorrespondentAccount {
 
     @Column(name = "number", nullable = false)
     private String number;

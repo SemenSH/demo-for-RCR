@@ -1,7 +1,6 @@
 server:
   port: 8081
 spring:
-  data.rest.base-path: /api
   main.allow-bean-definition-overriding: true
   h2:
     console:
@@ -16,4 +15,7 @@ spring:
     hibernate:
       ddl-auto: create
       dialect: org.hibernate.dialect.H2Dialect
-logging.level.ru.cbrcr.demorestservice.rest: debug
+  data:
+    rest:
+      base-path: /api
+logging.level.ru.cbr.demorestservice.rest: debug

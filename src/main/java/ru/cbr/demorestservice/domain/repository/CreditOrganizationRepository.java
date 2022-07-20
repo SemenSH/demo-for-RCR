@@ -6,12 +6,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.repository.history.RevisionRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 import ru.cbr.demorestservice.domain.model.CreditOrganization;
 import ru.cbr.demorestservice.domain.model.QCreditOrganization;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 @RepositoryRestResource(collectionResourceRel = "creditOrganizations", path = "creditOrganizations")
 public interface CreditOrganizationRepository extends CustomRepository<CreditOrganization, QCreditOrganization, Long>,
         RevisionRepository<CreditOrganization, Long, Integer> {
