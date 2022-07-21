@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Setter
 public class CreditOrganizationRegNum implements Serializable {
 
-    @Column
+    @Column(nullable = false)
     @Size(max = 4)
     // с пробелами @Pattern(regexp = "/^(?!.*(\\d).*\\1)[1-4](?: *, *[1-4])*$/")
     @Pattern(regexp = "/^(?!.*(\\d).*\\1)[1-4](?:,[1-4])*$/")

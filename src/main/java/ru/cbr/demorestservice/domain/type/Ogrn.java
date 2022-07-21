@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Setter
 public class Ogrn implements Serializable {
 
-    @Column
+    @Column(nullable = false)
     @Size(min = 13, max = 13)
     @Pattern(regexp = "/^(?!.*(\\d).*\\1)[13](?: *, *[13])*$/")
     private String ogrn;
