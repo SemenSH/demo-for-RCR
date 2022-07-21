@@ -97,7 +97,6 @@ public class CreditOrganization extends AbstractPersistable<Long> {
      * Список корреспондентских счетов организации
      */
     @ElementCollection(targetClass = CorrespondentAccount.class, fetch = FetchType.LAZY)
-    //@Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Collection<CorrespondentAccount> correspondentAccounts = new ArrayList<>();
 
     /**
