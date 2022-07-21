@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-
+@Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
 @Audited
@@ -24,5 +24,5 @@ public class CreditOrganizationRegNum implements Serializable {
     @Size(max = 4)
     // с пробелами @Pattern(regexp = "/^(?!.*(\\d).*\\1)[1-4](?: *, *[1-4])*$/")
     @Pattern(regexp = "/^(?!.*(\\d).*\\1)[1-4](?:,[1-4])*$/")
-    private String regNum;
+    private String regNumType;
 }

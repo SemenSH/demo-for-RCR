@@ -78,7 +78,7 @@ public class CreditOrganization extends AbstractPersistable<Long> {
      * Регистрационный номер
      */
     @Column
-    @Convert(converter = RegNumConverter.class)
+    @Convert(converter = RegNumConverter.class, attributeName = "regNumber")
     private CreditOrganizationRegNum regNumber;
 
     /**
@@ -103,7 +103,7 @@ public class CreditOrganization extends AbstractPersistable<Long> {
      * ОГРН организации
      */
     @Column
-    @Convert(converter = OgrnConverter.class)
+    @Convert(converter = OgrnConverter.class, attributeName = "ogrn")
     private Ogrn ogrn;
 
     /**

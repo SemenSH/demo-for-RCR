@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-
+@Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
 @Audited
@@ -23,6 +23,6 @@ public class Ogrn implements Serializable {
     @Column(nullable = false)
     @Size(min = 13, max = 13)
     @Pattern(regexp = "/^(?!.*(\\d).*\\1)[13](?: *, *[13])*$/")
-    private String ogrn;
+    private String ogrnType;
 
 }

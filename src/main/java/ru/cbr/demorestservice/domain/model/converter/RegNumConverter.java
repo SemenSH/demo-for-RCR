@@ -9,7 +9,7 @@ import javax.persistence.Converter;
 public class RegNumConverter implements AttributeConverter<CreditOrganizationRegNum, String> {
     @Override
     public String convertToDatabaseColumn(CreditOrganizationRegNum attribute) {
-        return attribute.getRegNum();
+        return attribute.getRegNumType();
     }
 
     @Override
