@@ -5,7 +5,7 @@ import ru.cbr.demorestservice.domain.type.Ogrn;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-@Converter()
+@Converter(autoApply = true)
 public class OgrnConverter implements AttributeConverter<Ogrn, String> {
 
     @Override

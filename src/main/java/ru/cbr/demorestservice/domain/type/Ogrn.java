@@ -15,7 +15,6 @@ import java.io.Serializable;
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
-@Audited
 @Getter
 @Setter
 public class Ogrn implements Serializable {

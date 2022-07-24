@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@RepositoryRestResource(collectionResourceRel = "creditOrganizations", path = "creditOrganizations")
+@RepositoryRestResource(collectionResourceRel = "creditors", path = "creditors")
 public interface CreditOrganizationRepository extends CustomRepository<CreditOrganization, QCreditOrganization, Long>,
         RevisionRepository<CreditOrganization, Long, Integer> {
 

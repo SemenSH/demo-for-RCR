@@ -21,7 +21,7 @@ public class AudController {
      * @param id
      * @return список модификаций+предыдущее состояние кредитной организации по id
      */
-    @GetMapping("/clients/{id}/aud")
+    @GetMapping("/creditors/{id}/aud")
     public List<CreditOrganization> getAud(@PathVariable Long id) {
         return creditOrganizationRepository.findRevisions(id).stream()
                 .map(Revision::getEntity)
