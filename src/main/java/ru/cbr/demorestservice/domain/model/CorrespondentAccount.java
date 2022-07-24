@@ -1,28 +1,27 @@
 package ru.cbr.demorestservice.domain.model;
 
 import lombok.*;
+import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 
+@Embeddable
+//@Audited
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "correspondent_account")
-public class CorrespondentAccount extends AbstractPersistable<Long> {
+@EqualsAndHashCode(callSuper = false)
+//@Entity(name = "correspondent_account")
+public class CorrespondentAccount {
 
     @Column(name = "number", nullable = false)
-    private Long number;
+    private String number;
 
     @Column(name = "name", length = 200, nullable = false)
     private String name;
 
-    @Column(name = "creditOrganisation_id")
-    private Long creditOrganisationId;
-
-    public CorrespondentAccount(Long number, String name) {
-        this.number = number;
-        this.name = name;
-    }
 }
