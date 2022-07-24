@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.AfterDomainEventPublication;
 import org.springframework.data.domain.DomainEvents;
@@ -96,6 +97,7 @@ public class CreditOrganization extends AbstractPersistable<Long> {
     /**
      * Список корреспондентских счетов организации
      */
+    @NotAudited
     @ElementCollection(targetClass = CorrespondentAccount.class, fetch = FetchType.LAZY)
     private Collection<CorrespondentAccount> correspondentAccounts = new ArrayList<>();
 
